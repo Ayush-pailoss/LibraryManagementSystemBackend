@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.lms.logs.interfaces.LogInterface;
 import com.lms.logs.repository.LogRepositoryBooks;
-import com.lms.logs.repository.LogRepositoryForUserAndAdmin;
-import com.lms.logs.repository.entity.LogActivityOfBooks;
-import com.lms.logs.repository.entity.LogActivityOfUserAndAdmin;
+import com.lms.logs.repository.LogRepositoryAdmin;
+import com.lms.logs.repository.entity.BooksLogs;
+import com.lms.logs.repository.entity.AdminLogs;
 
 @Service
 public class LogMessageService implements LogInterface {
@@ -20,7 +20,7 @@ public class LogMessageService implements LogInterface {
 	DateTimeFormatter format = DateTimeFormatter.ofPattern("E, dd-MM-yyyy HH:mm:ss");
 
 	@Autowired
-	LogRepositoryForUserAndAdmin repositoryForUserAndAdmin;
+	LogRepositoryAdmin repositoryForUserAndAdmin;
 
 	@Autowired
 	LogRepositoryBooks repositoryBooks;
@@ -32,7 +32,7 @@ public class LogMessageService implements LogInterface {
 	@Override
 	public String logInfoForUserAndAdmin(String message) {
 		String formattedDateTime = localDateTime.format(format);
-		LogActivityOfUserAndAdmin logMessage = LogActivityOfUserAndAdmin.builder().message(message).level("INFO")
+		AdminLogs logMessage = AdminLogs.builder().message(message).level("INFO")
 				.dateTime(formattedDateTime).build();
 		repositoryForUserAndAdmin.save(logMessage);
 		return message;
@@ -41,7 +41,7 @@ public class LogMessageService implements LogInterface {
 	@Override
 	public String logInfoForBooks(String message) {
 		String formattedDateTime = localDateTime.format(format);
-		LogActivityOfBooks logMessage = LogActivityOfBooks.builder().message(message).level("INFO")
+		BooksLogs logMessage = BooksLogs.builder().message(message).level("INFO")
 				.dateTime(formattedDateTime).build();
 		repositoryBooks.save(logMessage);
 		return message;
@@ -50,7 +50,7 @@ public class LogMessageService implements LogInterface {
 	@Override
 	public String logWarnForBooks(String message) {
 		String formattedDateTime = localDateTime.format(format);
-		LogActivityOfBooks logMessage = LogActivityOfBooks.builder().message(message).level("WARN")
+		BooksLogs logMessage = BooksLogs.builder().message(message).level("WARN")
 				.dateTime(formattedDateTime).build();
 		repositoryBooks.save(logMessage);
 		return message;
@@ -59,7 +59,7 @@ public class LogMessageService implements LogInterface {
 	@Override
 	public String logWarnForUserAndAdmin(String message) {
 		String formattedDateTime = localDateTime.format(format);
-	LogActivityOfUserAndAdmin logMessage = LogActivityOfUserAndAdmin.builder().message(message).level("WARN")
+	AdminLogs logMessage = AdminLogs.builder().message(message).level("WARN")
 				.dateTime(formattedDateTime).build();
 		repositoryForUserAndAdmin.save(logMessage);
 		return message;
