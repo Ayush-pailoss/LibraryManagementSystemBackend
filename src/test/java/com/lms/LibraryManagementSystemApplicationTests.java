@@ -1,14 +1,26 @@
 package com.lms;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootApplication
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
 public class LibraryManagementSystemApplicationTests {
-
-	public static void main(String[] args) {
-
-		SpringApplication.run(LibraryManagementSystemApplicationTests.class, args);
+Calc calc = new Calc();
+	
+@Test
+	void sumTest() {
+	
+	float expectedOp= 5;
+	calc.add(3,2);
+	assertEquals(expectedOp, 6);
 	}
 
+@Test
+void muliTest() {
+	 float expOp=10;
+	 calc.multi(5, 5);
+	 assertEquals(expOp, 25);
+}
 }
